@@ -2,17 +2,23 @@
 import React, { useState } from "react";
 import getWeb3 from "../web3";
 import { FaShieldAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = ({ onLogin }) => {
   const [account, setAccount] = useState("");
+  const navigate = useNavigate(); // 👈 use navigate
 
   const connectWallet = async () => {
     try {
       const web3 = await getWeb3();
       const accounts = await web3.eth.getAccounts();
-      setAccount(accounts[0]);
-      onLogin(accounts[0]);
+      const user = accounts[0];
+      setAccount(user);
+      onLogin(user);
+
+      // ✅ Navigate to /register after connection
+      navigate("/register");
     } catch (err) {
       console.error("MetaMask connection error:", err);
     }
@@ -27,12 +33,12 @@ const Login = ({ onLogin }) => {
         </div>
 
         <p className="tagline">
-          Revolutionizing Fraud Detection with Blockchain. Secure. Transparent. Reliable.
+          Welcome to the future of secure financial transactions. Connect your MetaMask wallet to get started and protect your assets from fraud using blockchain technology.
         </p>
 
         {!account ? (
-          <button className="connect-btn" onClick={connectWallet}>
-            Connect with MetaMask
+          <button onClick={connectWallet} className="connect-btn">
+            Connect MetaMask
           </button>
         ) : (
           <p className="connected">Connected: {account}</p>

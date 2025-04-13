@@ -1,28 +1,90 @@
 // src/components/Registration.js
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaIdCard } from "react-icons/fa";
+import SHA256 from "crypto-js/sha256";
+import CryptoJS from "crypto-js";
+import "./Registration.css";
 
 const Registration = ({ account }) => {
-  const [kycInput, setKycInput] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    alert(`Submitted KYC hash for ${account}: ${kycInput}`);
+  const [form, setForm] = useState({
+    name: "",
+    age: "",
+    aadharNumber: "",
+    aadharFile: null,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setForm({
+      ...form,
+      [name]: files ? files[0] : value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const aadharHash = SHA256(form.aadharNumber).toString();
+
+    const reader = new FileReader();
+    reader.onload = function () {
+      const wordArray = CryptoJS.lib.WordArray.create(reader.result);
+      const fileHash = SHA256(wordArray).toString();
+
+      console.log("🚀 Submitted KYC Details:");
+      console.log("Name:", form.name);
+      console.log("Age:", form.age);
+      console.log("Wallet:", account);
+      console.log("Hashed Aadhar Number:", aadharHash);
+      console.log("Hashed Aadhar PDF:", fileHash);
+
+      alert("✅ KYC Submitted Successfully!");
+
+      // TODO: Send aadharHash and fileHash to smart contract
+    };
+
+    reader.readAsArrayBuffer(form.aadharFile);
   };
 
   return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h2>KYC Submission</h2>
-      <p>Your Wallet: {account}</p>
-      <input
-        type="text"
-        placeholder="Enter Aadhar/PAN Hash"
-        value={kycInput}
-        onChange={(e) => setKycInput(e.target.value)}
-        style={{ padding: "8px", width: "250px" }}
-      />
-      <br />
-      <button onClick={handleSubmit} style={{ marginTop: "1rem" }}>
-        Submit KYC
-      </button>
+    <div className="kyc-container">
+      <div className="kyc-form-wrapper">
+        <div className="kyc-header">
+          <FaIdCard className="kyc-icon" />
+          <h1>KYC Verification</h1>
+        </div>
+        <form onSubmit={handleSubmit} className="kyc-form">
+          <label>
+            Full Name:
+            <input type="text" name="name" required onChange={handleChange} />
+          </label>
+
+          <label>
+            Age:
+            <input type="number" name="age" required onChange={handleChange} />
+          </label>
+
+          <label>
+            Aadhar Number:
+            <input type="text" name="aadharNumber" required onChange={handleChange} />
+          </label>
+
+          <label>
+            Upload Aadhar PDF:
+            <input type="file" name="aadharFile" accept=".pdf" required onChange={handleChange} />
+          </label>
+
+          <button type="submit" className="kyc-submit-btn">
+            Submit KYC
+          </button>
+        </form>
+
+        <p className="kyc-note">🔐 Your Aadhar details and document are securely hashed before sending to the blockchain.</p>
+        <p className="wallet">Connected Wallet: {account}</p>
+      </div>
     </div>
   );
 };

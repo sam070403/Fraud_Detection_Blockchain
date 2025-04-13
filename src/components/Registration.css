@@ -1,0 +1,86 @@
+.kyc-container {
+    height: 100vh;
+    background: linear-gradient(135deg, #1e293b, #2563eb, #9333ea);
+    background-size: 300% 300%;
+    animation: gradientBG 12s ease infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+  }
+  
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .kyc-form-wrapper {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 2.5rem;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  }
+  
+  .kyc-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .kyc-icon {
+    font-size: 2.2rem;
+    color: #22c55e;
+  }
+  
+  .kyc-form label {
+    display: block;
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+  }
+  
+  .kyc-form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 6px;
+    font-size: 1rem;
+  }
+  
+  .kyc-submit-btn {
+    background-color: #22c55e;
+    padding: 12px 24px;
+    width: 100%;
+    margin-top: 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .kyc-submit-btn:hover {
+    background-color: #16a34a;
+  }
+  
+  .kyc-note {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #d1d5db;
+    text-align: center;
+  }
+  
+  .wallet {
+    font-size: 0.85rem;
+    color: #34d399;
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+  
