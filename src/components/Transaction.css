@@ -1,0 +1,79 @@
+.txn-container {
+    height: 100vh;
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4rem;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+  }
+  
+  .txn-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #22d3ee;
+  }
+  
+  .shield-icon {
+    font-size: 2rem;
+    color: #4ade80;
+  }
+  
+  .txn-card {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 2.5rem;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  }
+  
+  .txn-card h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #38bdf8;
+  }
+  
+  .txn-group {
+    margin-bottom: 1.2rem;
+  }
+  
+  .txn-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 1rem;
+    color: #cbd5e1;
+  }
+  
+  .txn-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+  }
+  
+  .txn-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    background-color: #10b981;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .txn-button:hover {
+    background-color: #059669;
+  }
+  

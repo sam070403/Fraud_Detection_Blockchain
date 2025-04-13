@@ -1,7 +1,7 @@
 // src/components/Registration.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaIdCard } from "react-icons/fa";
+import { FaIdCard,FaShieldAlt } from "react-icons/fa";
 import SHA256 from "crypto-js/sha256";
 import CryptoJS from "crypto-js";
 import "./Registration.css";

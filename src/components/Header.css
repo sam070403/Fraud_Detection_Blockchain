@@ -1,0 +1,50 @@
+.header {
+    background-color: #0f172a;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .logo-icon {
+    font-size: 1.6rem;
+    color: #22c55e;
+  }
+  
+  .logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #38bdf8;
+  }
+  
+  .header-nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #e2e8f0;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .header-nav a:hover {
+    color: #facc15;
+  }
+  
+  .header-right .wallet-text {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    background-color: #1e293b;
+    padding: 6px 12px;
+    border-radius: 12px;
+  }
+  
