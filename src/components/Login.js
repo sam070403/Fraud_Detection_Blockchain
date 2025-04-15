@@ -1,59 +1,72 @@
 // src/components/Login.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import getWeb3 from "../web3";
 import { FaShieldAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = ({ onLogin }) => {
   const [account, setAccount] = useState("");
-  const navigate = useNavigate(); // 👈 use navigate
 
   const connectWallet = async () => {
     try {
       const web3 = await getWeb3();
       const accounts = await web3.eth.getAccounts();
-      const user = accounts[0];
-      setAccount(user);
-      onLogin(user);
-
-      // ✅ Navigate to /register after connection
-      navigate("/register");
+      if (accounts.length > 0) {
+        setAccount(accounts[0]);
+        onLogin(accounts[0]);
+      }
     } catch (err) {
       console.error("MetaMask connection error:", err);
     }
   };
 
+  useEffect(() => {
+    if (window.ethereum) {
+      window.ethereum.request({ method: "eth_accounts" }).then(accounts => {
+        if (accounts.length > 0) {
+          setAccount(accounts[0]);
+          onLogin(accounts[0]);
+        }
+      });
+    }
+  }, [onLogin]);
+
   return (
-    <div className="login-wrapper">
-      <div className="left-panel">
-        <div className="branding">
+    <div className="login-page">
+      <div className="login-left">
+        <div className="logo-title">
           <FaShieldAlt className="shield-icon" />
-          <h1 className="brand-name">FraudBlocker</h1>
+          <h1 className="title">FraudBlocker</h1>
         </div>
 
-        <p className="tagline">
+        <p className="welcome-text">
           Welcome to the future of secure financial transactions. Connect your MetaMask wallet to get started and protect your assets from fraud using blockchain technology.
         </p>
 
         {!account ? (
-          <button onClick={connectWallet} className="connect-btn">
+          <button onClick={connectWallet} className="connect-button">
             Connect MetaMask
           </button>
         ) : (
-          <p className="connected">Connected: {account}</p>
+          <div className="connected-box">
+            <h3>Wallet Connected ✅</h3>
+            <p className="connected-address">{account}</p>
+          </div>
         )}
       </div>
 
-      <div className="right-panel">
-        <h2 className="right-heading">Why Choose FraudBlocker?</h2>
-        <ul className="features">
-          <li>⚡ Real-time fraud detection powered by smart contracts</li>
-          <li>🛡️ KYC & AML verification for complete compliance</li>
-          <li>🔐 Escrow & Multi-signature authentication for big transactions</li>
-          <li>📈 Transparent audit trail with blockchain immutability</li>
+      <div className="login-right">
+        <h2 className="subtitle">Why FraudBlocker?</h2>
+        <ul className="features-list">
+          <li>Real-time fraud detection using blockchain transparency</li>
+          <li>KYC/AML integrated verification for secure user onboarding</li>
+          <li>Escrow and multi-signature authentication for high-value transactions</li>
+          <li>Fully decentralized & auditable system built on Ethereum</li>
         </ul>
-        <p className="quote">“We don't just detect fraud – we block it.”</p>
+
+        <p className="quote-text">
+          "We don't just detect fraud – we block it."
+        </p>
       </div>
     </div>
   );
